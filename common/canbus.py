@@ -93,49 +93,6 @@ def create_speedometer4(frame, addr, speed, bus, cks=False):
 
 
 class Prius(object):
-<<<<<<< HEAD
-  def __init__(self):
-    panda_list = Panda.list()
-    # choose panda serial prot
-    if len(panda_list) > 1:
-      for i, s in enumerate(panda_list, 1):
-        print('{}) {}'.format(i, s))
-      serial = panda_list[input('Please input 1, 2,.... or 10 number: ') - 1]
-    else:
-      serial = panda_list[0]
-
-    # Connect to panda
-    if serial in panda_list:
-      self.panda = Panda(serial)
-      self.panda.set_safety_mode(Panda.SAFETY_ALLOUTPUT)
-      self.panda.can_clear(0)
-      self.frame = 0
-      print('Connect Panda [Send]')
-    else:
-      print('Not Panda connect')
-      exit()
-
-  def send(self, speed=0):
-    can_send = []
-    # speedometer
-    can_send.append(create_speedometer(self.frame, 0xB4, speed, 0, True))
-    self.frame += 1
-    self.panda.can_send_many(can_send)
-
-  def recv(self, identifier='all'):
-    can_msgs = self.panda.can_recv()
-    can_msgs_bytes = []
-    for address, _, dat, src in can_msgs:
-      if identifier == 'all':
-        can_msgs_bytes.append((address, 0, bytes(dat), src))
-        print("Address: {}\t Data: {}\t src: {}".format(address, binary_show(dat), src))
-
-      elif identifier == address:
-        can_msgs_bytes.append((address, 0, bytes(dat), src))
-        print("Address: {}\t Data: {}\t src: {}".format(address, binary_show(dat), src))
-
-
-=======
     def __init__(self):
         panda_list = Panda.list()
         # choose panda serial prot
@@ -185,4 +142,3 @@ class Prius(object):
             can_msgs_bytes.append((address, 0, bytes(dat), src))
             if address == 0xb4:
                 print("Address: {}\t Data: {}\t src: {}".format(address, binary_show(dat), src))
->>>>>>> 117380ca48a3e2e8b763512bddefd08c92bafb79

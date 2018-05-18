@@ -70,9 +70,16 @@ class Prius(object):
     self.frame += 1
     self.panda.can_send_many(can_send)
 
-  def recv(self):
+  def recv(self, identifier='all'):
     can_msgs = self.panda.can_recv()
     can_msgs_bytes = []
     for address, _, dat, src in can_msgs:
-      can_msgs_bytes.append((address, 0, bytes(dat), src))
-      print("Address: {}\t Data: {}\t src: {}".format(address, binary_show(dat), src))
+      if identifier == 'all':
+        can_msgs_bytes.append((address, 0, bytes(dat), src))
+        print("Address: {}\t Data: {}\t src: {}".format(address, binary_show(dat), src))
+
+      elif identifier == address:
+        can_msgs_bytes.append((address, 0, bytes(dat), src))
+        print("Address: {}\t Data: {}\t src: {}".format(address, binary_show(dat), src))
+
+
